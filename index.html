@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="Utf-8">
+		<title>
+			XL RPG(Update)
+		</title>
+		<link rel="stylesheet" type="text/css" href="style.css">
+	</head>
+	<body>
+		<canvas width="800" height="600" id="canvas_bg" style="z-index: 0;"></canvas>
+		<canvas width="800" height="600" id="canvas_enemy" style="z-index: 1;"></canvas>
+		<canvas width="800" height="600" id="canvas_player" style="z-index: 2;"></canvas>
+		<script src="game.js"></script>
+		<script>
+			window.onload = function(){
+				loadImage();
+				startGame();
+				startGameLoop();
+			}
+		</script>
+	</body>
+</html>
