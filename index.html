@@ -11,10 +11,16 @@
 		<canvas width="800" height="600" id="canvas_bg" style="z-index: 0;"></canvas>
 		<canvas width="800" height="600" id="canvas_enemy" style="z-index: 1;"></canvas>
 		<canvas width="800" height="600" id="canvas_player" style="z-index: 2;"></canvas>
+		<script src="variable.js"></script>
+		<script src="image.js"></script>
+		<script src="menu.js"></script>
+		<script src="character.js"></script>
+		<script src="enemy.js"></script>
 		<script src="game.js"></script>
 		<script>
 			window.onload = function(){
 				loadImage();
+				variable();
 				startGame();
 				startGameLoop();
 			}
