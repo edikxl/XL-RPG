@@ -1,11 +1,11 @@
 #canvas_bg,#canvas_player,#canvas_enemy{
 	position: absolute;
 	border: 5px solid;
-	border-color: brown;
+	border-color: #394d27;
 	margin-left: 20%;
 }
 body{
-	background-image: url("image/background.jpg");
-	background-repeat: no-repeat;
+	background: url("image/background.jpg") 100% 100% no-repeat;
 	background-position: 25% 0%;
+	background-size: cover;
 }
