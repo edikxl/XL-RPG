@@ -37,10 +37,18 @@ var drawWizardRight = function(){  //Рисует Мага вправо
 	if(x_p >= 800){
 		if(level == level1_1){
 			level = level1_2;
-			drawLevel(level1_2);
+			drawLevel(level);
 		}else if(level = level1_2){
-			level = level1_3;
-			drawLevel(level1_3);
+			if(killInLvl == colEnemy){
+				level = level1_3;
+				drawLevel(level);
+			}
+		}
+	}
+	if(x_p >= 723){
+		if(killInLvl != colEnemy){
+		    x_p -= 5;
+		    alert("Не все мобы убиты!");
 		}
 	}
 }
@@ -80,13 +88,23 @@ var drawXP = function(xp){//Рисует шкалу опыта
 	xp_col = xp;
 	if(nowLvl == 0){
 		xp_var = xp_col * 2.6;
+		xpToUp = 100;
 	}else if(nowLvl == 1){
 		xp_var = xp_col * 1.3;
+		xpToUp = 200;
 	}
 	ctx1.fillStyle = ('Yellow');
 	ctx1.fillRect(270,5,xp_var,16);
 	ctx1.fillStyle = ("Black");
 	ctx1.fillText(("Level " + nowLvl + "  (" + xp_col + '/' + xpToUp + ")"),370,16);
+}
+var checkXP = function(){
+	if(xp == 100){
+		xp = 0;
+		nowLvl += 1;
+		ctx1.fillStyle = ("#1c2a1b");
+		ctx1.fillRect(270,5,260,16);
+	}
 }
 var drawMana = function(mana){  //Рисует шкалу маны
 	mana_col = mana;

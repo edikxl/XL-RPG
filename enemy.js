@@ -19,6 +19,7 @@ var spawnEnemy = function(col,type,hp,damage){  //Спавнит моба,при
 		ctx2.fillStyle = ("Black");
 		ctx2.fillText(hp+ "/" +hp,xHP + 35,yHP + 12);
 		enemyInfo[enemyName] = {
+			type : type,
 			xHP : xHP,
 			yHP : yHP,
 			hp : hp,
@@ -49,8 +50,13 @@ var enemyUpdate = function(dHP,iter){	//Обновляет количество 
 		i -= 1;
 	}
     if(enemyInfo[name].hp == 0){
+    	if(enemyInfo[name].type == greenBooLeft){
+			xp += 25;
+    	}
 		enemyInfo[name].status = false;
-		ctx2.clearRect(0,0,800,600);
+		killInLvl += 1;
+		ctx2.clearRect(enemyInfo[name].x,enemyInfo[name].y - 5,77,115);
+		ctx2.clearRect(enemyInfo[name].xHP - 5,enemyInfo[name].yHP - 5,260,23);
 	}
 }
 var enemyDamaged = function(skill,x,y,iter){  //Принимает название умения,номер врага которого бьют,и его координаты

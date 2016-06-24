@@ -37,10 +37,11 @@ var variable = function(){
 	manaRegCol = 5;
     //Текущий уровень перса походу,и опыт до след
 	nowLvl = 0;
-	xpToUp = 100;
+	xpToUp = 0;
     //Адские массивы
 	enemyInfo = {};
 	enemyListX = [];
 	enemyListY = [];
 	colEnemy = 0;
+	killInLvl = 0;
 }

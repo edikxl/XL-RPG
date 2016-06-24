@@ -21,7 +21,7 @@ var drawLevel = function(levelNow){   //Рисует уровень и прин�
 	x_p = 5,
 	y_p = 365;
 	drawWizard();
-	spawnEnemy(2,greenBooLeft,100,20);
+	spawnEnemy(4,greenBooLeft,100,20);
 }
 var startGame = function(){     //Одноразовая,рисует главное меню
 	drawMenu();
@@ -33,6 +33,7 @@ var gameLoop = function(){     //Игровой цикл,обновляет па
 		drawHP(hp);
 		drawXP(xp);
 		drawMana(mana);
+		checkXP();
 	}
 }
 var startGameLoop = function(){   //Запускает игровой цикл
