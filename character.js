@@ -1,3 +1,11 @@
+window.requestAnimFrame = (function(){
+  return  window.requestAnimationFrame       ||
+          window.webkitRequestAnimationFrame ||
+          window.mozRequestAnimationFrame    ||
+          function( callback ){
+            window.setTimeout(callback, 1000 / 60);
+          };
+})();
 var drawCharacter = function(){  //Рисует выбранного персонажа
 	stateMenu = false;
 	ctx1.drawImage(character,0,0);
@@ -8,47 +16,73 @@ var drawWizard = function(){   //Рисует Мага
 	ctx3.drawImage(wizardRight,x_p,y_p);
 }
 var drawWizardLeft = function(){  //Рисует Мага влево
-	x_p -= 5;
-	ctx3.clearRect(0,0,800,600);
-	ctx3.drawImage(wizardLeft,x_p,y_p);
-	if(x_p <= 0){
-		x_p += 5;
-	}
-	if(level == level1_1){
-		if(x_p <= 345){
-			if(y_p >= 255){
-				x_p += 5;
-				alert("Пути назад нет!");
-			}
+	if(stateMove){
+		x_p -= 5;
+		ctx3.clearRect(0,0,800,600);
+		ctx3.drawImage(wizardLeft,x_p,y_p);
+		if(x_p <= 0){
+			x_p += 5;
 		}
 	}
 }
 var drawWizardRight = function(){  //Рисует Мага вправо
-	x_p += 5;
-	ctx3.clearRect(0,0,800,600);
-	ctx3.drawImage(wizardRight,x_p,y_p);
-	if(level == level1_1){
-		if(x_p >= 250){
-			if(y_p < 365){
-				y_p += 5;
+	if(stateMove){
+		x_p += 5;
+		ctx3.clearRect(0,0,800,600);
+		ctx3.drawImage(wizardRight,x_p,y_p);
+		if(level == map1){
+			if(x_p == 420){
+				if(y_p == 330){
+					x_p -= 5;
+				}
+			}
+		}
+		if(x_p >= 800){
+			if(level == map1){
+				if(killInLvl == colEnemy){
+					level = map3;
+					drawLevel(level);
+				}
+			}else if(level = map3){
+				if(killInLvl == colEnemy){
+					level = map4;
+					drawLevel(level);
+				}
+			}
+		}
+		if(x_p >= 723){
+			if(killInLvl != colEnemy){
+			    x_p -= 5;
+			    alert("Не все мобы убиты!");
 			}
 		}
 	}
-	if(x_p >= 800){
-		if(level == level1_1){
-			level = level1_2;
-			drawLevel(level);
-		}else if(level = level1_2){
-			if(killInLvl == colEnemy){
-				level = level1_3;
-				drawLevel(level);
-			}
+}
+var drawWizardJumpUp = function(){//Фикси прыжок!
+	if(stateMove){
+		stateFly = true;
+		y_p -= 5;
+		ctx3.clearRect(0,0,800,600);
+		ctx3.drawImage(wizardJump,x_p,y_p);
+		jLvl += 1;
+		if(jLvl == maxJLvl){
+			drawWizardJumpDown();
+		}else{
+			requestAnimFrame(drawWizardJumpUp);
 		}
 	}
-	if(x_p >= 723){
-		if(killInLvl != colEnemy){
-		    x_p -= 5;
-		    alert("Не все мобы убиты!");
+}
+var drawWizardJumpDown = function(){
+	if(stateMove){
+		y_p += 5;
+		ctx3.clearRect(0,0,800,600);
+		ctx3.drawImage(wizardJump,x_p,y_p);
+		jLvl -= 1;
+		if(jLvl == 0){
+			stateFly = false;
+			drawWizard();
+		}else{
+			requestAnimFrame(drawWizardJumpDown);
 		}
 	}
 }
@@ -73,7 +107,7 @@ var drawFireBall = function(){  //Рисует огненный шар
 		x_b = 0;
 		return;
 	}else{
-		requestAnimationFrame(drawFireBall);
+		requestAnimFrame(drawFireBall);
 	}
 }
 var drawHP = function(hp){  //Рисует шкалу здоровья

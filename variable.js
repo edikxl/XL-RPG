@@ -1,27 +1,31 @@
 var variable = function(){
+	playerName = "Чувак без ника";
 	//Игровые статусы
 	stateMenu = false;
 	stateSettings = false;
 	stateHelp = false;
 	stateGame = false;
+	stateCutscene = false;
 	stateCharacter = false;
+	stateFly = false;
+	stateMove = false;
 	stateEnemy = false;
     //Позиция в меню
 	positionMenu = 0;
     //Уровень карты(Ват?)
 	level = 0;
     //Корды перса
-	x_p = 25;
-	y_p = 250;
-    //Корды хз чего
-	x_m = 1200;
-	y_m = 750;
+	x_p = 0;
+	y_p = 0;
     //Корды врага
 	x_e = 300;
 	y_e = 365;
     //Корды шара
 	x_b = 0;
 	y_b = 45;
+	//Уровень прыжка
+	jLvl = 0;
+	maxJLvl = 16;
     //Количество хп
     hp = 100;
 	hp_col = 100;

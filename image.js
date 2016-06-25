@@ -23,22 +23,28 @@ var loadImage = function(){
 
 	choosed_wizard = new Image();
 	choosed_wizard.src = "image/game/character/wizard/choosed_wizard.png";
-
+    //Интерфейс
 	interface = new Image();
 	interface.src = "image/game/interface/base.png";
+
+	dialog = new Image();
+	dialog.src = "image/game/interface/dialog_window.png";
 
 	intEnemyHP = new Image();
 	intEnemyHP.src = "image/game/interface/enemy_hp.png";
 
 	//Уровни
-	map1_1 = new Image();
-	map1_1.src = "image/game/map/1_1.png";
+	map1 = new Image();
+	map1.src = "image/game/map/1.png";
 
-	level1_1 = new Image();
-	level1_1.src = "image/game/map/level1_1.png";
+    map2 = new Image();
+    map2.src = "image/game/map/2.png";
 
-	level1_2 = new Image();
-	level1_2.src = "image/game/map/level1_2.png";
+	map1_2 = new Image();
+    map1_2.src = "image/game/map/1-2.png";
+
+    map3 = new Image();
+    map3.src = "image/game/map/3.png";
 
 	//Персонаж
 	wizardRight = new Image();
@@ -46,13 +52,16 @@ var loadImage = function(){
 
 	wizardLeft = new Image();
 	wizardLeft.src = "image/game/character/wizard/wizard_left.png";
+
+	wizardJump = new Image();
+	wizardJump.src = "image/game/character/wizard/wizard_jump.png";
 	//Умения
 	fireBall = new Image();
 	fireBall.src = "image/game/character/skills/wizard/fireBall.png";
 	//Враги
-	greenBooRight = new Image();
-	greenBooRight.src = "image/game/enemy/GreenBoo_Right.png";
+	redBooRight = new Image();
+	redBooRight.src = "image/game/enemy/RedBooRight.png";
 
-	greenBooLeft = new Image();
-	greenBooLeft.src = "image/game/enemy/GreenBoo_Left.png";
+	redBooLeft = new Image();
+	redBooLeft.src = "image/game/enemy/RedBooLeft.png";
 }

@@ -11,17 +11,45 @@ var ctx3 = canvas_player.getContext('2d');//,,--,, с героем и всеми
 
 var game = function(){    //Функция(одноразовая) запускает игру
 	stateCharacter = false;
-	ctx1.drawImage(interface,0,0);
-	ctx1.drawImage(level1_1,0,25);
-	level = level1_1;
-	stateGame = true;
+	stateMove = false;
+	stateCutscene = true;
+	ctx1.drawImage(map1_2,0,0);
+	level = map1;
+	setTimeout(function(){
+		ctx2.font = "20px Verdana, sans-serif";
+		ctx2.fillStyle = ("White");
+		ctx2.fillText("Давным-давно,одним жарким днём,в далёкой жопе очутился...",100,100);
+		setTimeout((function(){
+			playerName = prompt("Как тя зовут то?");ctx2.fillText("..."+playerName+".",100,120);
+			setTimeout((function(){stopCutscene();}),2500);
+		}),2000);
+	},1000);
 }
 var drawLevel = function(levelNow){   //Рисует уровень и принимает значение текущего уровня
 	ctx1.drawImage(levelNow,0,25);
 	x_p = 5,
-	y_p = 365;
+	y_p = 330;
 	drawWizard();
-	spawnEnemy(4,greenBooLeft,100,20);
+}
+var stopCutscene = function(){
+	stateCutscene = false;
+	stateGame = true;
+	stateMove = true;
+	ctx2.clearRect(0,0,800,600);
+	ctx1.drawImage(interface,0,0);
+	drawLevel(level);
+}
+var checkButton = function(){
+	if(stateFly){
+		if(nowKey[87]){
+			if(nowKey[68]){
+				x_p += 5;
+			}
+			if(nowKey[65]){
+				x_p -= 10;
+			}
+		}
+	}
 }
 var startGame = function(){     //Одноразовая,рисует главное меню
 	drawMenu();
@@ -30,6 +58,7 @@ var startGame = function(){     //Одноразовая,рисует главн
 }
 var gameLoop = function(){     //Игровой цикл,обновляет параметры героя
 	if(stateGame){
+		checkButton();
 		drawHP(hp);
 		drawXP(xp);
 		drawMana(mana);
@@ -39,21 +68,22 @@ var gameLoop = function(){     //Игровой цикл,обновляет па
 var startGameLoop = function(){   //Запускает игровой цикл
 	setInterval(gameLoop,1000/60);
 }
-//Клавиатура
-var keys = {   //Массив с клавишами и их цифровыми значениями
-	W : '87',
-	A : '65',
-	S : '83',
-	D : '68',
-	Space : '32',
-	Enter : '13'
-}
-
-var nowKey = 0; //Переменная текущей клавиши
-
+//Клавиатура 2.0
+var nowKey = {
+	87 : false,
+	65 : false,
+	83 : false,
+	68 : false,
+	32 : false,
+	13 : false,
+	49 : false,
+	50 : false,
+	51 : false,
+	52 : false
+};
 window.onkeydown = function (e) {
-	nowKey = e.keyCode;
-	if(nowKey == keys.W){  //События при нажатии клавиши W
+	if(e.keyCode == 87){                         //W
+		nowKey[87] = true;
 		if(stateMenu){
 			if(positionMenu == 1){
 				ctx1.clearRect(0,0,800,600);
@@ -68,12 +98,20 @@ window.onkeydown = function (e) {
 				drawMenu();
 				drawMenuSettings();
 			}
+		}else if(stateGame){
+			if(stateFly == false){
+				drawWizardJumpUp();
+			}
 		}
-	}else if(nowKey == keys.A){  //,,--,, клавиши A
+	}
+	if(e.keyCode == 65){                         //A
+		nowKey[65] = true;
 		if(stateGame){
 			drawWizardLeft();
 		}
-	}else if(nowKey == keys.S){  //,,--,, клавиши S
+	}                                           
+	if(e.keyCode == 83){                         //S
+		nowKey[83] = true;
 		if(stateMenu){
 			if(positionMenu == 1){
 				ctx1.clearRect(0,0,800,600);
@@ -89,11 +127,15 @@ window.onkeydown = function (e) {
 				drawMenuGame();
 			}
 		}
-	}else if(nowKey == keys.D){  //,,--,, клавиши D
+	}                                           
+	if(e.keyCode == 68){                         //D
+		nowKey[68] = true;
 		if(stateGame){
 			drawWizardRight();
 		}
-	}else if(nowKey == keys.Space){   //,,--,, клавиши Пробел
+	}
+	if(e.keyCode == 32){                         //Space
+		nowKey[32] = true;
 		if(stateGame){
 			if(x_b == 0){
 				if(mana >= 25){
@@ -104,7 +146,9 @@ window.onkeydown = function (e) {
 				}
 			}
 		}
-	}else if(nowKey == keys.Enter){  //,,--,, клавиши Enter
+	}
+	if(e.keyCode == 13){                         //Enter
+		nowKey[13] = true;
 		if(stateMenu){
 			if(positionMenu == 1){
 				drawCharacter();
@@ -126,4 +170,28 @@ window.onkeydown = function (e) {
 			drawWizardRight();
 		}
 	}
+	if(e.keyCode == 49){                         //Цифра 1
+		nowKey[49] = true;
+	}
+	if(e.keyCode == 50){                         //Цифра 2
+		nowKey[50] = true;
+	}
+	if(e.keyCode == 51){                         //Цифра 3
+		nowKey[51] = true;
+	}
+	if(e.keyCode == 52){                         //Цифра 4
+		nowKey[52] = true;
+	}
+}
+window.onkeyup = function (e){
+	if(e.keyCode == 87){nowKey[87] = false;}
+	if(e.keyCode == 65){nowKey[65] = false;}
+	if(e.keyCode == 65){nowKey[65] = false;}
+	if(e.keyCode == 65){nowKey[65] = false;}
+	if(e.keyCode == 65){nowKey[65] = false;}
+	if(e.keyCode == 65){nowKey[65] = false;}
+	if(e.keyCode == 65){nowKey[65] = false;}
+	if(e.keyCode == 65){nowKey[65] = false;}
+	if(e.keyCode == 65){nowKey[65] = false;}
+	if(e.keyCode == 65){nowKey[65] = false;}
 }
